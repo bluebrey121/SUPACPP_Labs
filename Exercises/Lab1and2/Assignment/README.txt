@@ -2,4 +2,4 @@ Hi, this is my submission for assignment 1. To run the program navigate to the A
     g++ -w -o AnalyseData AnalyseData.cpp CustomFunctions.cpp
 in the terminal. Then type
     ./AnalyseData
-and follow the instructions. 
+and follow the instructions. The results will be printed on the terminal and also saved in files in the Oututs directory.
