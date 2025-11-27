@@ -5,6 +5,7 @@
 std::vector<std::pair<float, float>> readData(std::string filename);
 
 void printData(std::vector<std::pair<float, float>> dataPoints, int N);
+void printData(std::vector<double> dataPoints, int N);
 
 std::vector<double> CalculateMagnitudes(std::vector<std::pair<float, float>> dataPoints);
 

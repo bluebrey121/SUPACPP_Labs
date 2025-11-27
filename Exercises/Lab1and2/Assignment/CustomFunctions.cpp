@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include <utility>
-# include <cmath>
+#include <cmath>
 
 // Function to read data from file and load it into container
 std::vector<std::pair<float, float>> readData(std::string filename) {
@@ -44,7 +44,7 @@ std::vector<std::pair<float, float>> readData(std::string filename) {
     return dataPoints;
 }
 
-// Function to print data to the terminal from container
+// Print funstion overload for raw data (x,y)
 void printData(std::vector<std::pair<float, float>> dataPoints, int N) {
 
     // Check if there is any data to display
@@ -66,6 +66,28 @@ void printData(std::vector<std::pair<float, float>> dataPoints, int N) {
     }
 }
 
+// Print function overload for magnitudes / exponents
+void printData(std::vector<double> dataPoints, int N) {
+
+    // Check if there is any data to display
+    int total = dataPoints.size();
+    if (total == 0) {
+        std::cout << "No data to display." << std::endl;
+        return;
+    }
+
+    // Check if there is enough data to display. If not display 5 data points
+    if (N > total) {
+        std::cout << "Warning: Requested " << N << " lines, but only " << total << " available." << std::endl;
+        std::cout << "Printing first 5 lines instead:" << std::endl;
+        N = std::min(5, total);
+    }
+
+    for (int i = 0; i < N; ++i) {
+        std::cout << "(" << dataPoints[i] << ")" << std::endl;
+    }
+}
+
 // Fuction which calculates magnitude
 std::vector<double> CalculateMagnitudes(std::vector<std::pair<float, float>> dataPoints) {
     std::vector<double> Magnitudes;
@@ -74,7 +96,6 @@ std::vector<double> CalculateMagnitudes(std::vector<std::pair<float, float>> dat
     for(int i=0; i<total; i++) {
         double Magnitude = sqrt(dataPoints[i].first*dataPoints[i].first + dataPoints[i].second*dataPoints[i].second);
         Magnitudes.emplace_back(Magnitude);
-        std::cout << Magnitude << std::endl;
     }
     return Magnitudes;
 }

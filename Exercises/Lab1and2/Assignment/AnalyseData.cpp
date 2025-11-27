@@ -26,6 +26,8 @@ int main() {
     if (Answer2 == 'y' || Answer2 == 'Y') {
         // Calculate magnitudes of data points
         auto Magnitudes = CalculateMagnitudes(dataPoints);
+        // Print results to terminal
+        printData(Magnitudes, Magnitudes.size()); // print all data
         // Save magnitudes to file
         saveToFile(Magnitudes, "magnitudes");
     }
@@ -37,6 +39,7 @@ int main() {
     if (Answer3 == 'y' || Answer3 == 'Y') {
         // Fit linear regression to data points
         auto [Equation, ChiSq] = LinearRegression(dataPoints);
+        // Print fit parameters to terminal
         std::cout << "Linear regression: " << Equation << std::endl;
         std::cout << "Chi squared / DoF = "<< ChiSq << std::endl;
         // Save linear regression parameters to file
@@ -50,10 +53,8 @@ int main() {
     if (Answer4 == 'y' || Answer4 == 'Y') {
         // Calculate x^y for all data points
         auto results = returnExponents(dataPoints);
-        std::cout << results.size() << std::endl;
-        for (int i; i<results.size(); i++) {
-            std::cout << results[i] << std::endl;
-        }
+        // Print results to terminal
+        printData(results, results.size()); // print all data
         // Save results to file
         saveToFile(results, "exponents");
     }
