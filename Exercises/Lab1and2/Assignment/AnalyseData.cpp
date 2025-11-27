@@ -32,8 +32,9 @@ int main() {
     std::cin >> Answer3;    
 
     if (Answer3 == 'y' || Answer3 == 'Y') {
-        auto Equation = LinearRegression(dataPoints);
-        std::cout << Equation << std::endl;
+        auto [Equation, ChiSq] = LinearRegression(dataPoints);
+        std::cout << "Linear regression: " << Equation << std::endl;
+        std::cout << "Chi squared / DoF = "<< ChiSq << std::endl;
     }
 
     return 0;

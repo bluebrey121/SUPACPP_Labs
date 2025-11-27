@@ -79,8 +79,32 @@ std::vector<float> CalculateMagnitudes(std::vector<std::pair<float, float>> data
     return Magnitudes;
 }
 
+// Calculate Chi squared
+double calculateChiSq(std::vector<std::pair<float, float>> observed, double p, double q) {
+    //Load error data 
+    auto errors = readData("../error2D_float.txt");
+
+    int total = observed.size();
+    
+    double ChiSq;
+    
+    for (int i=0; i<total; i++) {
+        double x = observed[i].first;
+        double y = observed[i].second;
+        double sigma = errors[i].second;
+
+        double expected = p*x + q;
+
+        ChiSq += (y-expected)*(y-expected) / (sigma*sigma);
+    }
+
+    ChiSq /= total-2; //Normalise chi squared.
+
+    return ChiSq;
+}
+
 // Function to fit linear regression on data
-std::string LinearRegression(std::vector<std::pair<float, float>> dataPoints) {
+std::pair<std::string, double> LinearRegression(std::vector<std::pair<float, float>> dataPoints) {
     int total = dataPoints.size();
 
     float y_sum = 0;
@@ -104,7 +128,11 @@ std::string LinearRegression(std::vector<std::pair<float, float>> dataPoints) {
     std::string Equation = "y= " + std::to_string(p) +  "*x + "  + std::to_string(q);
 
     std::ofstream EquationFile("Equation.txt");
-    EquationFile << Equation;
+    EquationFile << Equation << std::endl;
 
-    return Equation;
+    auto ChiSq = calculateChiSq(dataPoints, p, q);
+
+    EquationFile << ChiSq;
+
+    return {Equation, ChiSq};
 }
