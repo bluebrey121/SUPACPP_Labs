@@ -12,6 +12,8 @@ double calculateChiSq(std::vector<std::pair<float, float>> observed, double p, d
 
 std::pair<std::string, double> LinearRegression(std::vector<std::pair<float, float>> dataPoints);
 
-void exponentiateDataPoints(std::vector<std::pair<float, float>> dataPoints, int index = 0);
+std::vector<double> exponentiateDataPoints(std::vector<std::pair<float, float>> dataPoints, int index = 0);
 
 double recursivePower(double x, int n);
+
+std::vector<double> returnExponents(std::vector<std::pair<float, float>> dataPoints);

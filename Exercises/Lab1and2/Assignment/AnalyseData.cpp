@@ -42,7 +42,11 @@ int main() {
     std::cin >> Answer4;
 
     if (Answer4 == 'y' || Answer4 == 'Y') {
-        exponentiateDataPoints(dataPoints);
+        auto results = returnExponents(dataPoints);
+        std::cout << results.size() << std::endl;
+        for (int i; i<results.size(); i++) {
+            std::cout << results[i] << std::endl;
+        }
     }
 
     return 0;

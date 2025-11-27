@@ -146,19 +146,26 @@ double recursivePower(double x, int n) {
 }
 
 // Recursive function to process each data point
-void exponentiateDataPoints(std::vector<std::pair<float, float>> dataPoints, int index = 0) {
+void exponentiateDataPoints(std::vector<std::pair<float, float>> dataPoints, std::vector<double>& results, int index) {
+
     // base case: end of vector
-    if (index >= dataPoints.size()) return;
+    if (index >= dataPoints.size()) {
+        return;
+    }
 
     double x = dataPoints[index].first;
-    double y = dataPoints[index].second;
+    double y = dataPoints[index].second;   
 
     int yRounded = std::round(y);  // round y to nearest integer
-    double result = recursivePower(x, yRounded);
-
-    std::cout << "x = " << x << ", y = " << y 
-              << " (rounded: " << yRounded << ") => x^y = " << result << std::endl;
+    results.push_back(recursivePower(x, yRounded));
 
     // recursive call for next element
-    exponentiateDataPoints(dataPoints, index + 1);
+    exponentiateDataPoints(dataPoints, results, index + 1);
+}
+
+// Function that returns a vector of results for printing and writing to file
+std::vector<double> returnExponents(std::vector<std::pair<float, float>> dataPoints) {
+    std::vector<double> results;
+    exponentiateDataPoints(dataPoints, results, 0);
+    return results;
 }
