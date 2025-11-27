@@ -136,3 +136,29 @@ std::pair<std::string, double> LinearRegression(std::vector<std::pair<float, flo
 
     return {Equation, ChiSq};
 }
+
+// Recursive function to compute x^n
+double recursivePower(double x, int n) {
+    // base case
+    if (n == 0) return 1;
+    // recursive step
+    return x * recursivePower(x, n - 1); 
+}
+
+// Recursive function to process each data point
+void exponentiateDataPoints(std::vector<std::pair<float, float>> dataPoints, int index = 0) {
+    // base case: end of vector
+    if (index >= dataPoints.size()) return;
+
+    double x = dataPoints[index].first;
+    double y = dataPoints[index].second;
+
+    int yRounded = std::round(y);  // round y to nearest integer
+    double result = recursivePower(x, yRounded);
+
+    std::cout << "x = " << x << ", y = " << y 
+              << " (rounded: " << yRounded << ") => x^y = " << result << std::endl;
+
+    // recursive call for next element
+    exponentiateDataPoints(dataPoints, index + 1);
+}

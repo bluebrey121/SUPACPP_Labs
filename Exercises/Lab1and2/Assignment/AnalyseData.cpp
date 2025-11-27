@@ -37,5 +37,13 @@ int main() {
         std::cout << "Chi squared / DoF = "<< ChiSq << std::endl;
     }
 
+    char Answer4;
+    std::cout << "Do you want to calculate x^y for all points in the file? [y/n]: ";
+    std::cin >> Answer4;
+
+    if (Answer4 == 'y' || Answer4 == 'Y') {
+        exponentiateDataPoints(dataPoints);
+    }
+
     return 0;
 }
