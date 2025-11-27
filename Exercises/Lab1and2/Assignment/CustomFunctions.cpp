@@ -67,12 +67,12 @@ void printData(std::vector<std::pair<float, float>> dataPoints, int N) {
 }
 
 // Fuction which calculates magnitude
-std::vector<float> CalculateMagnitudes(std::vector<std::pair<float, float>> dataPoints) {
-    std::vector<float> Magnitudes;
+std::vector<double> CalculateMagnitudes(std::vector<std::pair<float, float>> dataPoints) {
+    std::vector<double> Magnitudes;
     int total = dataPoints.size();
 
     for(int i=0; i<total; i++) {
-        float Magnitude = sqrt(dataPoints[i].first*dataPoints[i].first + dataPoints[i].second*dataPoints[i].second);
+        double Magnitude = sqrt(dataPoints[i].first*dataPoints[i].first + dataPoints[i].second*dataPoints[i].second);
         Magnitudes.emplace_back(Magnitude);
         std::cout << Magnitude << std::endl;
     }
@@ -127,12 +127,12 @@ std::pair<std::string, double> LinearRegression(std::vector<std::pair<float, flo
 
     std::string Equation = "y= " + std::to_string(p) +  "*x + "  + std::to_string(q);
 
-    std::ofstream EquationFile("Equation.txt");
-    EquationFile << Equation << std::endl;
+    //std::ofstream EquationFile("Equation.txt");
+    //EquationFile << Equation << std::endl;
 
     auto ChiSq = calculateChiSq(dataPoints, p, q);
 
-    EquationFile << ChiSq;
+    //EquationFile << ChiSq;
 
     return {Equation, ChiSq};
 }
@@ -168,4 +168,31 @@ std::vector<double> returnExponents(std::vector<std::pair<float, float>> dataPoi
     std::vector<double> results;
     exponentiateDataPoints(dataPoints, results, 0);
     return results;
+}
+
+// Saving function overload for magnitudes / exponents
+void saveToFile(std::vector<double> results, std::string name) {
+    std::ofstream file("../Outputs/" + name + ".txt");
+    if (!file) {
+        std::cerr << "Error opening file" << std::endl;
+        return;
+    }
+    for (double val : results) {
+        file << val << std::endl;  // each value on a new row
+    }
+    file.close();
+}
+
+// Saving function overload for linear regression
+void saveToFile(std::pair<std::string, double> results, std::string name) {
+    std::ofstream file("../Outputs/" + name + ".txt");
+    if (!file) {
+        std::cerr << "Error opening file" << std::endl;
+        return;
+    }
+    // Add string equation to file
+    file << results.first << std::endl;
+    // Add double Chi sq value to file
+    file << results.second;
+    file.close();
 }

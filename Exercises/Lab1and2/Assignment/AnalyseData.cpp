@@ -24,7 +24,10 @@ int main() {
     std::cin >> Answer2;
 
     if (Answer2 == 'y' || Answer2 == 'Y') {
+        // Calculate magnitudes of data points
         auto Magnitudes = CalculateMagnitudes(dataPoints);
+        // Save magnitudes to file
+        saveToFile(Magnitudes, "magnitudes");
     }
 
     char Answer3;
@@ -32,9 +35,12 @@ int main() {
     std::cin >> Answer3;    
 
     if (Answer3 == 'y' || Answer3 == 'Y') {
+        // Fit linear regression to data points
         auto [Equation, ChiSq] = LinearRegression(dataPoints);
         std::cout << "Linear regression: " << Equation << std::endl;
         std::cout << "Chi squared / DoF = "<< ChiSq << std::endl;
+        // Save linear regression parameters to file
+        saveToFile({Equation, ChiSq}, "LinearRegression");
     }
 
     char Answer4;
@@ -42,11 +48,14 @@ int main() {
     std::cin >> Answer4;
 
     if (Answer4 == 'y' || Answer4 == 'Y') {
+        // Calculate x^y for all data points
         auto results = returnExponents(dataPoints);
         std::cout << results.size() << std::endl;
         for (int i; i<results.size(); i++) {
             std::cout << results[i] << std::endl;
         }
+        // Save results to file
+        saveToFile(results, "exponents");
     }
 
     return 0;
