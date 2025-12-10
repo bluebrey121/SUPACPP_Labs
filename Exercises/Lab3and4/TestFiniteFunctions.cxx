@@ -22,18 +22,14 @@ int main() {
     }
     infile.close();
 
-    // --- 3. Tell FiniteFunction to plot the function as well ---
-    F.plotFunction();   // scans function over range and stores (x,f(x))
+    // Plot the function as well
+    F.plotFunction();
 
-    // --- 4. Tell FiniteFunction to turn the data into a histogram ---
-    // Choose an appropriate number of bins, e.g., 50
-    F.plotData(dataPoints, 50, true);
+    // Turn the data into a histogram
+    F.plotData(dataPoints, 50, true); // 50 bins
 
-    // --- 5. Print extra debugging info (optional) ---
+    // Print extra debugging info ust in case
     F.printInfo();
-
-    // --- 6. Program ends → FiniteFunction destructor runs ---
-    // This automatically generates the PNG in Outputs/png/
-
+    
     return 0;
 }
