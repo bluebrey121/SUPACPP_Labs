@@ -62,9 +62,25 @@ Integration by hand (output needed to normalise function when plotting)
 ###################
 */ 
 double FiniteFunction::integrate(int Ndiv){ //private
-  //ToDo write an integrator
-  return -99;  
+    double a = m_RMin;
+    double b = m_RMax;
+    double h = (b - a) / (double)Ndiv;
+
+    double sum = 0.0;
+
+    // Evaluate endpoints
+    sum += 0.5 * callFunction(a);
+    sum += 0.5 * callFunction(b);
+
+    // Interior points
+    for (int i = 1; i < Ndiv; i++) {
+        double x = a + i * h;
+        sum += callFunction(x);
+    }
+
+    return sum * h;
 }
+
 double FiniteFunction::integral(int Ndiv) { //public
   if (Ndiv <= 0){
     std::cout << "Invalid number of divisions for integral, setting Ndiv to 1000" <<std::endl;
