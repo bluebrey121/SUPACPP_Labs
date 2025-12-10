@@ -1,34 +1,45 @@
-CC=g++ #Name of compiler
-FLAGS=-std=c++20 -w #Compiler flags (the s makes it silent)
-TARGET=TestFiniteFunctions #Executable name
-OBJECTS=TestFiniteFunctions.o FiniteFunctions.o #CustomFunctions.o
-LIBS=-I ../../GNUplot/ -lboost_iostreams
+CC = g++                         # Compiler
+FLAGS = -std=c++20 -w            # Compiler flags
+TARGET = TestFiniteFunctions     # Executable name
 
-#First target in Makefile is default
-${TARGET}:${OBJECTS} #Make target from objects
+OBJECTS = TestFiniteFunctions.o FiniteFunctions.o MyFunctions.o
+
+LIBS = -I ../../GNUplot/ -lboost_iostreams
+
+# ---------------------------------------------------------
+# Default target: build executable
+# ---------------------------------------------------------
+${TARGET}: ${OBJECTS}
 	@echo "Linking..."
 	${CC} ${FLAGS} ${OBJECTS} ${LIBS} -o ${TARGET}
 	@make clean
 
-TestFiniteFunctions.o : TestFiniteFunctions.cxx FiniteFunctions.h
+# ---------------------------------------------------------
+# Compile main program
+# ---------------------------------------------------------
+TestFiniteFunctions.o: TestFiniteFunctions.cxx FiniteFunctions.h MyFunctions.h
 	${CC} ${FLAGS} ${LIBS} -c TestFiniteFunctions.cxx
 
-FiniteFunctions.o : FiniteFunctions.cxx FiniteFunctions.h
+# ---------------------------------------------------------
+# Compile FiniteFunctions base class
+# ---------------------------------------------------------
+FiniteFunctions.o: FiniteFunctions.cxx FiniteFunctions.h
 	${CC} ${FLAGS} ${LIBS} -c FiniteFunctions.cxx
 
-#CustomFunctions.o : CustomFunctions.cxx
-#	${CC} ${FLAGS} ${LIBS} -c CustomFunctions.cxx
-	
-#CalculatePi.o : CalculatePi.cxx
-#	${CC} ${FLAGS} ${LIBS} -c CalculatePi.cxx
+# ---------------------------------------------------------
+# Compile MyFunctions derived class
+# ---------------------------------------------------------
+MyFunctions.o: MyFunctions.cxx MyFunctions.h FiniteFunctions.h
+	${CC} ${FLAGS} ${LIBS} -c MyFunctions.cxx
 
-#CalculatePi : CalculatePi.o
-#	@echo "Linking for CalculatePi..."
-#	${CC} ${FLAGS} CalculatePi.o -o CalculatePi
-#	@make clean
-	
-clean: #No targets just run shell command to rm object files and emacs backups
+# ---------------------------------------------------------
+# Clean object files
+# ---------------------------------------------------------
+clean:
 	@rm -f *.o *~
 
-cleantarget: #Delete the exectuable
+# ---------------------------------------------------------
+# Clean the final executable
+# ---------------------------------------------------------
+cleantarget:
 	@rm -f ${TARGET}
