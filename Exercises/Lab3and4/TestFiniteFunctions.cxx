@@ -23,7 +23,7 @@ int main() {
     // Load datapoints (same for all plots)
     // -----------------------------------------------------------
     vector<double> dataPoints;
-    string fname = "../../Data/MysteryData20000.txt";
+    string fname = "../../Data/MysteryData24222.txt";
     if (!loadData(fname, dataPoints)) return 1;
 
     int Nbins = 50;   // histogram bins
@@ -32,7 +32,7 @@ int main() {
     // Gaussian
     // -----------------------------------------------------------
     {
-        MyFunctions G(-5, 5, "Gaussian");
+        MyFunctions G(-20, 20, "Gaussian");
         G.setFunctionType(MyFunctions::GAUSSIAN);
 
         // parameters
@@ -53,7 +53,7 @@ int main() {
     // Cauchy–Lorenz
     // -----------------------------------------------------------
     {
-        MyFunctions C(-10, 10, "Cauchy");
+        MyFunctions C(-20, 20, "Cauchy");
         C.setFunctionType(MyFunctions::CAUCHY);
 
         C.mean  = 0.0;
@@ -71,7 +71,7 @@ int main() {
     // Crystal ball
     // -----------------------------------------------------------
     {
-        MyFunctions CB(-5, 5, "CrystalBall");
+        MyFunctions CB(-20, 20, "CrystalBall");
         CB.setFunctionType(MyFunctions::CRYSTALBALL);
 
         CB.mean  = 0.0;
